@@ -5,7 +5,7 @@ z = c(1,:) + j*c(2,:);
 
 s = diff(unwrap(angle(z)))/(2*pi);
 
-myFilter = butter(6, 16000/(2*length(s)));
+myFilter = butter(6, 16000/(240000/2));
 x = filter(myFilter(1), myFilter(2), s);
 
 y = x(5:5:end);
