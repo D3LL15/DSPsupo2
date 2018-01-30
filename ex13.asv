@@ -1,0 +1,32 @@
+f = fopen('iq-fm-97M-3.6M.dat', 'r', 'ieee-le');
+c = fread(f, [2,inf], '*float32');
+fclose(f);
+z = c(1,:) + j*c(2,:);
+
+spectrogram(z);
+
+shifted = 0:length(z)-1;
+for i = 1:length(z)
+    shifted(i) = exp((2 * pi * shifted(i) * j) /96.0);
+end
+
+spectrogram(shifted);
+
+myFilter = butter(6, 200000/(2*length(shifted)));
+filtered = filter(myFilter(1), myFilter(2), shifted);
+
+spectrogram(filtered);
+
+%FM demodulate
+s = diff(unwrap(angle(shifted)))/(2*pi);
+
+%low pass filter
+myFilter = butter(6, 16000/(2*length(s)));
+x = filter(myFilter(1), myFilter(2), s);
+
+y = x(5:5:end);
+length(y)
+normalised = y/max(y);
+
+audiowrite('outputRadio.wav', normalised, 48000);
+%}
