@@ -1,8 +1,0 @@
-f = fopen('iq-fm-96M-240k.dat', 'r', 'ieee-le');
-c = fread(f, [2,inf], '*float32');
-fclose(f);
-z = c(1,:) + j*c(2,:);
-
-s = diff(unwrap(angle(z)))/(2*pi);
-
-filter(butter(6, 16000), s);

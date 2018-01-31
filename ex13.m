@@ -7,7 +7,7 @@ z = c(1,:) + j*c(2,:);
 
 shifted = 0:length(z)-1;
 for i = 1:length(z)
-    shifted(i) = z(i) * exp((2 * pi * shifted(i) * j * 1000000) / 3600000);
+    %shifted(i) = z(i) * exp((2 * pi * shifted(i) * j * 1000000) / 3600000);
     %shifted(i) = z(i) * exp((2 * pi * shifted(i) * j * 120000) / 3600000);
     %shifted(i) = z(i) * exp((2 * pi * shifted(i) * j * 1700000) / 3600000);
 end
